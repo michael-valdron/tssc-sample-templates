@@ -4,13 +4,17 @@ SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT_DIR=$(realpath $SCRIPTDIR/..)
 
 REPO=$1
+BRANCH_ARG=''
+if [ ! -z "$2" ]; then
+    BRANCH_ARG="-b $2"
+fi
 DIRNAME=$(basename $REPO)
 mkdir -p $SCRIPTDIR/samples 
 SAMPLE_DIR=$SCRIPTDIR/samples/$DIRNAME 
 if [ -d $SAMPLE_DIR ]; then
     (cd $SAMPLE_DIR; git pull 2>&1 > /dev/null)
-else 
-    (cd $SCRIPTDIR/samples;  git clone $REPO 2>&1 > /dev/null)
+else
+    (cd $SCRIPTDIR/samples; git clone ${BRANCH_ARG} $REPO 2>&1 > /dev/null)
 fi
 
 APP_NAME=$(yq ".metadata.name" $SAMPLE_DIR/devfile.yaml)
