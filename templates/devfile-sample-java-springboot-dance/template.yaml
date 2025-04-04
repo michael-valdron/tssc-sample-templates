@@ -207,6 +207,7 @@ spec:
         - imageOrg
         - imageName
         - namespace
+        - modelServerType
       properties:
         imageRegistry:
           title: Image Registry
@@ -232,6 +233,37 @@ spec:
           ui:options:
             rows: 5
           ui:help: "This will be the prefix of the following three namespaces for deployment: <namespace>-development, <namespace>-stage, <namespace>-prod"
+        modelServerType:
+          title: Model Server Type
+          type: string
+          description: The type of AI model server to use with your application
+          default: none
+          enum:
+            - none
+            - byom
+          enumNames:
+            - 'None'
+            - 'Bring Your Own Model (BYOM)'
+      dependencies:
+        modelServerType:
+          oneOf:
+            - properties:
+                modelServerType:
+                  const: none
+            - required:
+                - modelServerEndpoint
+                - modelServerName
+              properties:
+                modelServerType:
+                  const: byom
+                modelServerEndpoint:
+                  title: Model Server Endpoint
+                  type: string
+                  ui:help: API URL for accessing a target AI model server
+                modelServerName:
+                  title: Model Server Name
+                  type: string
+                  ui:help: Title of target AI model server
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
   steps:
