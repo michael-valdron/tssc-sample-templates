@@ -9,9 +9,9 @@ spec:
   source:
     path: ./app-of-apps
     repoURL: ${{ values.repoURL }}.git
-    targetRevision: ${{ values.defaultBranch }}
+    targetRevision: main
   destination:
-    namespace: ${{ values.argoNS }}
+    namespace: ${{ values.namespace }}
     server: https://kubernetes.default.svc
   syncPolicy:
     managedNamespaceMetadata:

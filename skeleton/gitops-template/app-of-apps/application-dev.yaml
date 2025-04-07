@@ -9,7 +9,7 @@ spec:
   source:
     path: ${{ values.argoComponentOverlays }}/development
     repoURL: ${{ values.repoURL }}.git
-    targetRevision: ${{ values.defaultBranch }}
+    targetRevision: main
   destination:
     namespace: ${{ values.namespace }}-development
     server: https://kubernetes.default.svc
