@@ -4,14 +4,14 @@ SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOTDIR=$(realpath $SCRIPTDIR/..)
 
 # get gitops templates
-REPO='https://github.com/redhat-appstudio/tssc-sample-gitops'
+REPO='https://github.com/michael-valdron/tssc-sample-gitops'
 REPONAME=$(basename $REPO)
 
 TEMPDIR=$ROOTDIR/temp
 rm -rf $TEMPDIR # clean up
 mkdir -p $TEMPDIR
 cd $TEMPDIR
-git clone $REPO 2>&1 > /dev/null
+git clone $REPO -b model-server-config 2>&1 > /dev/null
 
 
 DEST=$ROOTDIR/skeleton/gitops-template
