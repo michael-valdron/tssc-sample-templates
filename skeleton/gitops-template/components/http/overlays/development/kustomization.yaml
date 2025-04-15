@@ -1,6 +1,10 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 patchesStrategicMerge:
-  - deployment-patch.yaml
+- deployment-patch.yaml
 resources:
-  - ../../base
+- ../../base 
+{%- if values.isTekton %}
+- gitops-repository.yaml
+- source-repository.yaml
+{%- endif %}
